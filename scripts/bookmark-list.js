@@ -17,14 +17,25 @@ const bookmarks = (function(){
     `;
   };
 
-  function generateBookmarkString(bookmarkList) {
+  const generateBookmarkString = function(bookmarkList) {
     const items = bookmarkList.map((item) => generateBookmarkElement(item));
     return items.join('');
-  }
+  };
 
- 
+  const render = function () {
+    let bookmarks = store.state.list;
+
+    // Filter bookmarks list if store.state prop `filter` is not empty
+    if (store.state.filter) {
+      bookmarks = store.state.list.filter(bookmark => bookmark.rating > store.state.filter);
+    }
+    const shoppingListItemsString = generateBookmarkString(bookmarks);
+
+    // insert that HTML into the DOM
+    $('.js-bookmarks').html(shoppingListItemsString);
+  };
 
   return {
-
+    render,
   };
 }());
