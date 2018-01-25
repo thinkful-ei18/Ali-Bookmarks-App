@@ -6,25 +6,13 @@ const api = (function(){
   const getBookmarks = function (callback) {
     $.getJSON(`${BASE_URL}bookmarks`, callback);
   };
-  const testDATA = {
-    title: 'Google',
-    url: 'https://www.google.com/',
-    desc: 'Quality search engine',
-    rating: 4,
-  };
-  const createBookmark = function (title, url, desc, rating, callback) {
-    const newItem = {
-      title: title,
-      url: url,
-      desc: desc,
-      rating: rating,
-    };
 
+  const createBookmark = function (bookmark, callback) {
     $.ajax({
       url: `${BASE_URL}bookmarks`,
       method: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify(newItem),
+      data: JSON.stringify(bookmark),
       success: callback,
     });
   };
@@ -53,6 +41,5 @@ const api = (function(){
     createBookmark,
     updateBookmark,
     deleteBookmark,
-    testDATA,
   };
 }());

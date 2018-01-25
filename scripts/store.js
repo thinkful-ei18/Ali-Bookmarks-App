@@ -3,20 +3,7 @@
 const store = (function () {
 
   const state = {
-    list: [{
-      title: 'google',
-      url: 'www.google.com',
-      desc: 'google home page',
-      rating: 5,
-      hidden: true,
-    },
-    {
-      title: 'yahoo',
-      url: 'www.yahoo.com',
-      desc: 'yahoo home page',
-      rating: 3,
-    },
-    ],
+    list: [],
     adding: false,
     filter: null,
   };
