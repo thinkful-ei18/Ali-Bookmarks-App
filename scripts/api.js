@@ -4,7 +4,7 @@ const api = (function(){
   const BASE_URL = 'https://thinkful-list-api.herokuapp.com/ali/';
 
   const getBookmarks = function (callback) {
-    $.getJSON(`${BASE_URL}bookmarks`, data => console.log(data));
+    $.getJSON(`${BASE_URL}bookmarks`, callback);
   };
   const testDATA = {
     title: 'Google',

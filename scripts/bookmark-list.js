@@ -17,6 +17,27 @@ const bookmarks = (function(){
     `;
   };
 
+  const inputString = `
+  
+  <form action="#">
+      <label>Title</label>
+      <input type="text" id="title" placeholder="add a title">
+      <label>Link</label>
+      <input type="text" id="url" placeholder="Type in URL">
+      <label>Description</label>
+      <input type="text" id="desc" placeholder="Add description">
+      <form action="" id="rating">
+        <input type="radio" name="rating" value="1"> 1
+        <input type="radio" name="rating" value="2"> 2
+        <input type="radio" name="rating" value="3"> 3
+        <input type="radio" name="rating" value="4"> 4
+        <input type="radio" name="rating" value="5"> 5
+      </form>
+      <button>Submit</button>
+    </form>
+  
+  `;
+
   const generateBookmarkString = function(bookmarkList) {
     const items = bookmarkList.map((item) => generateBookmarkElement(item));
     return items.join('');
@@ -35,7 +56,19 @@ const bookmarks = (function(){
     $('.js-bookmarks').html(shoppingListItemsString);
   };
 
+  const bookmarkInput = function () {
+    $('.add').click(function (event) {
+      let input = $('.input').html();
+      if(!input) {
+        $('.input').html(inputString);
+      } else {
+        $('.input').html('');
+      }
+    });
+  };
+
   return {
     render,
+    bookmarkInput
   };
 }());

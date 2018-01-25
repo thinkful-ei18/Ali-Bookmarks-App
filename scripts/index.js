@@ -1,2 +1,3 @@
 'use strict';
-/* global store, api */
+/* global store, api, bookmarks */
+bookmarks.bookmarkInput();
