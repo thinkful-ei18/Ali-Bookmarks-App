@@ -3,37 +3,41 @@
 
 const bookmarks = (function(){
 
+  const starMaker = function(num) {
+    const star = '<i class="fa fa-star" aria-hidden="true"></i>';
+    let str = '';
+    for (let i = 0; i < num; i++) {
+      str += star;
+    }
+    return str;
+  };
+
   const generateBookmarkElement = function(bookmark) {
     let displayVisible = `
       <p class="hidden">${bookmark.desc}</p>
-      <a class="hidden" href="${bookmark.url}" target="blank">Visit Site</a>
-    `;
+      <a class="hidden" href="${bookmark.url}" target="blank">Visit Site</a>`;
     return `
       <li data-id="${bookmark.id}">
         <h3>${bookmark.title}</h3>
-       <span>${bookmark.rating}</span> 
+       <span>${starMaker(bookmark.rating)}</span> 
        ${!bookmark.hidden ? displayVisible : '' }
        <button class="delete hidden">Delete</button>
-     </li>
-    `;
+     </li>`;
   };
 
   const inputString = `
-  
   <form action="#" id="js-bookmark-form">
       <label>Title</label>
-      <input type="text" id="title" placeholder="add a title" class="js-title">
+      <input type="text" id="title" placeholder="add a title" class="js-title" maxlength="30">
       <label>Link</label>
-      <input type="text" id="url" class="js-url" placeholder="Type in URL">
+      <input type="text" id="url" class="js-url" placeholder="Type in URL" type="url">
       <label>Description</label>
-      <input type="text" id="desc" class="js-desc" placeholder="Add description">
-      
+      <input type="text" id="desc" class="js-desc" placeholder="Add description" maxlength="140">
         <input class:"radio-rating" type="radio" name="rating" data-radio-rating=1 value="1"> 1
         <input class:"radio-rating" type="radio" name="rating" data-radio-rating=2 value="2"> 2
         <input class:"radio-rating" type="radio" name="rating" data-radio-rating=3 value="3"> 3
         <input class:"radio-rating" type="radio" name="rating" data-radio-rating=4 value="4"> 4
         <input class:"radio-rating" type="radio" name="rating" data-radio-rating=5 value="5"> 5
-      
       <button>Submit</button>
     </form>
   `;
@@ -75,7 +79,6 @@ const bookmarks = (function(){
         desc: $('.js-desc').val(),
         url: $('.js-url').val()
       };
-      console.log(bookmark.rating);
       $('.js-bookmark-entry').val('');
       api.createBookmark(bookmark, () => {
         store.addBookmark(bookmark);
