@@ -14,14 +14,16 @@ const bookmarks = (function(){
 
   const generateBookmarkElement = function(bookmark) {
     let displayVisible = `
-      <p class="hidden">${bookmark.desc}</p>
-      <a class="hidden" href="${bookmark.url}" target="blank">Visit Site</a>`;
+      <p>${bookmark.desc}</p>
+      <a href="${bookmark.url}" target="blank">Visit Site</a>
+      <button class="delete">Delete</button>
+      `;
+      
     return `
       <li data-id="${bookmark.id}">
         <h3>${bookmark.title}</h3>
        <span>${starMaker(bookmark.rating)}</span> 
-       ${!bookmark.hidden ? displayVisible : '' }
-       <button class="delete hidden">Delete</button>
+       ${bookmark.hidden ? displayVisible : '' }
      </li>`;
   };
 
@@ -106,7 +108,13 @@ const bookmarks = (function(){
   
   const fullDisplay = function () {
     $('ul').on('click', 'li', event => {
-      $(event.currentTarget).children('p, a, .delete').toggleClass('hidden');
+      // $(event.currentTarget).children('p, a, .delete').toggleClass('hidden');
+      const id = $(event.currentTarget).data('id');
+      console.log(id);
+      store.findById(id);
+      console.log(store.state.list);
+      render();
+      //   store.state.list = store.state.list.filter(val => val.rating >= rating)
     });
   };
 
