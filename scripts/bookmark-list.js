@@ -13,7 +13,7 @@ const bookmarks = (function(){
         <h3>${bookmark.title}</h3>
        <span>${bookmark.rating}</span> 
        ${!bookmark.hidden ? displayVisible : '' }
-       <button class="delete">Delete</button>
+       <button class="delete hidden">Delete</button>
      </li>
     `;
   };
@@ -28,11 +28,11 @@ const bookmarks = (function(){
       <label>Description</label>
       <input type="text" id="desc" class="js-desc" placeholder="Add description">
       
-        <input type="radio" name="rating" value="1"> 1
-        <input type="radio" name="rating" value="2"> 2
-        <input type="radio" name="rating" value="3"> 3
-        <input type="radio" name="rating" value="4"> 4
-        <input type="radio" name="rating" value="5"> 5
+        <input class:"radio-rating" type="radio" name="rating" data-radio-rating=1 value="1"> 1
+        <input class:"radio-rating" type="radio" name="rating" data-radio-rating=2 value="2"> 2
+        <input class:"radio-rating" type="radio" name="rating" data-radio-rating=3 value="3"> 3
+        <input class:"radio-rating" type="radio" name="rating" data-radio-rating=4 value="4"> 4
+        <input class:"radio-rating" type="radio" name="rating" data-radio-rating=5 value="5"> 5
       
       <button>Submit</button>
     </form>
@@ -71,17 +71,19 @@ const bookmarks = (function(){
       event.preventDefault();
       const bookmark = {
         title: $('.js-title').val(),
-        rating: $('.rating').val(),
+        rating: $('input[name=rating]:checked').data('radio-rating'),
         desc: $('.js-desc').val(),
         url: $('.js-url').val()
       };
-      console.log(bookmark);
+      console.log(bookmark.rating);
       $('.js-bookmark-entry').val('');
       api.createBookmark(bookmark, () => {
         store.addBookmark(bookmark);
         api.getBookmarks(data => {
           store.state.list = data;
           render();
+          $('.rating, .js-refresh').toggleClass('hidden');
+          $('.input').html('');
         });
       });
     });
@@ -101,16 +103,40 @@ const bookmarks = (function(){
   
   const fullDisplay = function () {
     $('ul').on('click', 'li', event => {
-      console.log('click');
-      $(event.currentTarget).children('p, a').toggleClass('hidden');
+      $(event.currentTarget).children('p, a, .delete').toggleClass('hidden');
     });
   };
 
+  const filter = function () {
+    $('.filter').click(event => {
+      event.preventDefault();
+      const rating = $('.ratings option:selected').data('rating');
+      api.getBookmarks(data => {
+        store.state.list = data.filter(val => val.rating >= rating);
+        render();
+      });
+    });
+  };
+
+  const refresh = function () {
+    $('.js-refresh').click(function() {
+      api.getBookmarks(data => {
+        store.state.list = data;
+        render();
+      });
+    });
+  };
+  function bindEventListeners() {
+    render(),
+    bookmarkInput(),
+    handleNewItemSubmit(),
+    handleItemDelete(),
+    fullDisplay(),
+    filter();
+    refresh();
+  }
   return {
     render,
-    bookmarkInput,
-    handleNewItemSubmit,
-    handleItemDelete,
-    fullDisplay
+    bindEventListeners,
   };
 }());

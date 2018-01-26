@@ -1,6 +1,9 @@
 body {
   background: black;
   color: lightblue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 h1 {
   color: lightblue;
@@ -8,4 +11,7 @@ h1 {
 
 .hidden {
   display: none;
+}
+ul, li {
+  list-style: none;
 }

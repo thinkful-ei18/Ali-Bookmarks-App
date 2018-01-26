@@ -1,10 +1,10 @@
 'use strict';
 /* global store, api, bookmarks */
-bookmarks.bookmarkInput();
-bookmarks.handleNewItemSubmit();
-bookmarks.handleItemDelete();
-bookmarks.fullDisplay();
-api.getBookmarks(data => {
-  store.state.list = data;
-  bookmarks.render();
+$(document).ready(function () {
+  bookmarks.bindEventListeners(),
+  //initial get items
+  api.getBookmarks(data => {
+    store.state.list = data;
+    bookmarks.render();
+  });
 });

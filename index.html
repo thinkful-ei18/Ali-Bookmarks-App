@@ -12,13 +12,14 @@
   <button class="add">Add Bookmark</button>
   <div class="input"></div>
   <form action="#" class="rating">
-    <select name="ratings">
-      <option value="1">1 Star</option>
-      <option value="2">2 Star</option>
-      <option value="3">3 Star</option>
-      <option value="4">4 Star</option>
+    <select name="ratings" class="ratings">
+      <option value="1" data-rating=1>1 Star</option>
+      <option value="2" data-rating=2>2 Star</option>
+      <option value="3" data-rating=3>3 Star</option>
+      <option value="4"data-rating=4>4 Star</option>
+      <option value="4" data-rating=5>5 Star</option>
     </select>
-    <button>Filter</button>
+    <button class="filter">Filter</button>
   </form>
   <button class="js-refresh">Refresh</button>
   <ul class="js-bookmarks"></ul>
