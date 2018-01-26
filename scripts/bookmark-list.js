@@ -5,8 +5,8 @@ const bookmarks = (function(){
 
   const generateBookmarkElement = function(bookmark) {
     let displayVisible = `
-      <p>${bookmark.desc}</p>
-      <a href="${bookmark.url}" target="blank">Visit Site</a>
+      <p class="hidden">${bookmark.desc}</p>
+      <a class="hidden" href="${bookmark.url}" target="blank">Visit Site</a>
     `;
     return `
       <li data-id="${bookmark.id}">
@@ -99,11 +99,18 @@ const bookmarks = (function(){
     });
   };  
   
+  const fullDisplay = function () {
+    $('ul').on('click', 'li', event => {
+      console.log('click');
+      $(event.currentTarget).children('p, a').toggleClass('hidden');
+    });
+  };
 
   return {
     render,
     bookmarkInput,
     handleNewItemSubmit,
-    handleItemDelete
+    handleItemDelete,
+    fullDisplay
   };
 }());
