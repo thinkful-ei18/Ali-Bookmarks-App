@@ -1,5 +1,5 @@
 'use strict';
-/* global store store, api */
+/* global store store, api, $ */
 
 const bookmarks = (function(){
 
@@ -9,7 +9,7 @@ const bookmarks = (function(){
       <a href="${bookmark.url}" target="blank">Visit Site</a>
     `;
     return `
-      <li id=${bookmark.id}>
+      <li data-id="${bookmark.id}">
         <h3>${bookmark.title}</h3>
        <span>${bookmark.rating}</span> 
        ${!bookmark.hidden ? displayVisible : '' }
@@ -88,10 +88,9 @@ const bookmarks = (function(){
   };
 
   const handleItemDelete = function () {
-    $('input').on('click', '.delete', function(event){
-      console.log('delete clicked');
-      event.preventDefault();
-      api.deleteBookmark($(this).closest('li').id, data => {
+    $('ul').on('click', '.delete', event => {
+      const id = $(event.currentTarget).closest('li').data('id');
+      api.deleteBookmark(id, data => {
         api.getBookmarks(data => {
           store.state.list = data;
           render();
@@ -99,6 +98,7 @@ const bookmarks = (function(){
       });
     });
   };  
+  
 
   return {
     render,
