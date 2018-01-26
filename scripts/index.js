@@ -6,6 +6,5 @@ $(document).ready(function () {
   api.getBookmarks(data => {
     store.state.list = data.map(val => store.addHidden(val));
     bookmarks.render();
-    console.log(store.state.list);
   });
 });

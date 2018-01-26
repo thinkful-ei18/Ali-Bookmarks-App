@@ -9,24 +9,25 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:700|Roboto" rel="stylesheet" />
 </head>
+
 <body>
   <h1>Bookmarks</h1>
-  <button class="add">Add Bookmark</button>
-  <div class="input"></div>
-  <form action="#" class="rating">
-    <select name="ratings" class="ratings">
-      <option value="1" data-rating=1>1 Star</option>
-      <option value="2" data-rating=2>2 Star</option>
-      <option value="3" data-rating=3>3 Star</option>
-      <option value="4"data-rating=4>4 Star</option>
-      <option value="4" data-rating=5>5 Star</option>
-    </select>
-    <button class="filter">Filter</button>
-  </form>
-  <button class="js-refresh">Refresh</button>
+  <div class="main-buttons">
+    <button class="add add-button">Add Bookmark</button>
+    <div class="input"></div>
+    <button class="js-refresh refresh-button">Refresh All</button>
+    <form action="#" class="rating">
+      <button class="filter filter-button">Filter</button>
+      <select name="ratings" class="ratings">
+        <option value="1" data-rating=1>1 Star</option>
+        <option value="2" data-rating=2>2 Star</option>
+        <option value="3" data-rating=3>3 Star</option>
+        <option value="4" data-rating=4>4 Star</option>
+        <option value="4" data-rating=5>5 Star</option>
+      </select>
+    </form>
+  </div>
   <ul class="js-bookmarks"></ul>
-
-
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/cuid/1.3.8/browser-cuid.min.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

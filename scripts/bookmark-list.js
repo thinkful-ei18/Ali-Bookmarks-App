@@ -28,19 +28,22 @@ const bookmarks = (function(){
   };
 
   const inputString = `
-  <form action="#" id="js-bookmark-form">
+  <form action="#" id="js-bookmark-form" class="bookmark-form">
       <label>Title</label>
       <input type="text" id="title" placeholder="add a title" class="js-title" maxlength="30">
       <label>Link</label>
       <input type="text" id="url" class="js-url" placeholder="Type in URL" type="url">
       <label>Description</label>
-      <input type="text" id="desc" class="js-desc" placeholder="Add description" maxlength="140">
+      <textarea type="text" id="desc" class="js-desc" placeholder="Add description" maxlength="140"></textarea>
+      <div class="radio-form">
+        <label class="rating-label">Rating</label>
         <input class:"radio-rating" type="radio" name="rating" data-radio-rating=1 value="1"> 1
         <input class:"radio-rating" type="radio" name="rating" data-radio-rating=2 value="2"> 2
         <input class:"radio-rating" type="radio" name="rating" data-radio-rating=3 value="3"> 3
         <input class:"radio-rating" type="radio" name="rating" data-radio-rating=4 value="4"> 4
         <input class:"radio-rating" type="radio" name="rating" data-radio-rating=5 value="5"> 5
-      <button>Submit</button>
+      </div>
+      <button class="submit-button">Submit</button>
     </form>
   `;
 
@@ -108,13 +111,9 @@ const bookmarks = (function(){
   
   const fullDisplay = function () {
     $('ul').on('click', 'li', event => {
-      // $(event.currentTarget).children('p, a, .delete').toggleClass('hidden');
       const id = $(event.currentTarget).data('id');
-      console.log(id);
       store.findById(id);
-      console.log(store.state.list);
       render();
-      //   store.state.list = store.state.list.filter(val => val.rating >= rating)
     });
   };
 
